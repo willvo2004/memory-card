@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';    
 import MemoryCard from '../MemoryCard/MemoryCard';
+import './MemoryCardList.css';
 
 const MemoryCardList = () => {
     const [pokemonData, setPokemonData] = useState([]);
@@ -13,7 +14,8 @@ const MemoryCardList = () => {
               const data = await response.json();
               return {
                 title: data.species.name,
-                icon: data.sprites.front_default
+                icon: data.sprites.front_default,
+                id: data.id
               };
             })
           );
@@ -22,17 +24,16 @@ const MemoryCardList = () => {
         fetchData();
       }, []);
     
-      const handleCardClick = () => {
-        // Shuffle the array
-        const shuffledData = [...pokemonData].sort(() => Math.random() - 0.5)
-        setPokemonData(shuffledData);
-        console.log('Card clicked');
-      }
+    const handleCardClick = () => {
+    // Shuffle the array
+    const shuffledData = [...pokemonData].sort(() => Math.random() - 0.5)
+    setPokemonData(shuffledData);
+    }
 
     return (
         <div className="card-wrapper">
-            {pokemonData.map((pokemon, index) => (
-            <MemoryCard key={index} title={pokemon.title} icon={pokemon.icon} handleClick={handleCardClick} />
+            {pokemonData.map((pokemon) => (
+                <MemoryCard key={pokemon.id} title={pokemon.title} icon={pokemon.icon} handleClick={handleCardClick} />
             ))}
         </div>
     )
