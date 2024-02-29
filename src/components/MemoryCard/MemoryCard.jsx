@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import './MemoryCard.css';
-const MemoryCard = ({ icon, title, handleClick}) => {
+const MemoryCard = ({ icon, title, handleClick, handleCardSelect }) => {
     const [selected, setSelected] = useState(false);
 
     const handleSelect = () => {
@@ -15,6 +15,7 @@ const MemoryCard = ({ icon, title, handleClick}) => {
         // Call both handleClick and handleSelect
         handleClick();
         handleSelect();
+        handleCardSelect(selected);
     };
     
     return (
@@ -28,7 +29,7 @@ const MemoryCard = ({ icon, title, handleClick}) => {
                     <h3>{title}</h3>
                 </div>
             </div>
-        </div>        
+        </div>       
       </>
     )
 }

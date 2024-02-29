@@ -1,9 +1,12 @@
 import { useState, useEffect } from 'react';    
 import MemoryCard from '../MemoryCard/MemoryCard';
+import Score from '../Score/Score';
 import './MemoryCardList.css';
 
 const MemoryCardList = () => {
     const [pokemonData, setPokemonData] = useState([]);
+    const [score, setScore] = useState(0);
+    const [bestScore, setBestScore] = useState(0);
 
     useEffect(() => {
         const fetchData = async () => {
@@ -30,12 +33,26 @@ const MemoryCardList = () => {
     setPokemonData(shuffledData);
     }
 
+    const handleCardSelect = (selected) => {
+        if (!selected) {
+            setScore(score + 1);
+        } else {
+            if (score > bestScore) {
+                setBestScore(score);
+            }
+            setScore(0);
+        }
+    }
+
     return (
-        <div className="card-wrapper">
-            {pokemonData.map((pokemon) => (
-                <MemoryCard key={pokemon.id} title={pokemon.title} icon={pokemon.icon} handleClick={handleCardClick} />
-            ))}
-        </div>
+        <>  
+            <Score score={score} bestScore={bestScore} />
+            <div className="card-wrapper">
+                {pokemonData.map((pokemon) => (
+                    <MemoryCard key={pokemon.id} title={pokemon.title} icon={pokemon.icon} handleClick={handleCardClick} handleCardSelect={handleCardSelect}/>
+                ))}
+            </div>
+        </>
     )
 }
 
