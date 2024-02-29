@@ -1,21 +1,8 @@
-import { useState } from 'react';
 import './MemoryCard.css';
-const MemoryCard = ({ icon, title, handleClick, handleCardSelect }) => {
-    const [selected, setSelected] = useState(false);
-
-    const handleSelect = () => {
-        if (selected) {
-            console.log("already clicked!")
-            return;
-        }
-        setSelected(true);
-    }
+const MemoryCard = ({ icon, title, handleClick }) => {
 
     const handleCardClick = () => {
-        // Call both handleClick and handleSelect
         handleClick();
-        handleSelect();
-        handleCardSelect(selected);
     };
     
     return (

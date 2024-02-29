@@ -5,6 +5,7 @@ import './MemoryCardList.css';
 
 const MemoryCardList = () => {
     const [pokemonData, setPokemonData] = useState([]);
+    const [selectedPokemon, setSelectedPokemon] = useState([]);
     const [score, setScore] = useState(0);
     const [bestScore, setBestScore] = useState(0);
 
@@ -27,29 +28,31 @@ const MemoryCardList = () => {
         fetchData();
       }, []);
     
-    const handleCardClick = () => {
+    const handleCardClick = (id) => {
     // Shuffle the array
     const shuffledData = [...pokemonData].sort(() => Math.random() - 0.5)
     setPokemonData(shuffledData);
-    }
 
-    const handleCardSelect = (selected) => {
-        if (!selected) {
-            setScore(score + 1);
-        } else {
-            if (score > bestScore) {
-                setBestScore(score);
-            }
-            setScore(0);
-        }
+    if (!selectedPokemon.includes(id)) {
+        setSelectedPokemon([...selectedPokemon, id]);
+        setScore(score + 1);
+        console.log(selectedPokemon);
     }
+    else {
+        if (score > bestScore) {
+          setBestScore(score);
+        }
+        setSelectedPokemon([]);
+        setScore(0);
+    }
+  };
 
     return (
         <>  
             <Score score={score} bestScore={bestScore} />
             <div className="card-wrapper">
                 {pokemonData.map((pokemon) => (
-                    <MemoryCard key={pokemon.id} title={pokemon.title} icon={pokemon.icon} handleClick={handleCardClick} handleCardSelect={handleCardSelect}/>
+                    <MemoryCard key={pokemon.id} title={pokemon.title} icon={pokemon.icon} handleClick={() => handleCardClick(pokemon.id)} />
                 ))}
             </div>
         </>
