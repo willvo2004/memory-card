@@ -2,8 +2,14 @@
     height: 200px;
     width: 170px;
     background-color: black;
+    transition: background-color 0.3s ease-in-out; /* Apply transition to background-color */
 }
+
 .card-content:hover {
     background-color: red;
     cursor: pointer;
+}
+
+.card-content:not(:hover) {
+    transition: none; /* Disable transition when not hovered */
 }

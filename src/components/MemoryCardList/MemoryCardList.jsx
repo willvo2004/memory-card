@@ -11,7 +11,7 @@ const MemoryCardList = () => {
 
     useEffect(() => {
         const fetchData = async () => {
-          const pokemons = ['pikachu', 'charmander', 'bulbasaur', 'squirtle', 'gible'];
+          const pokemons = ['pikachu', 'charmander', 'bulbasaur', 'squirtle', 'gible', 'metapod'];
           const newData = await Promise.all(
             pokemons.map(async (pokemonName) => {
               const response = await fetch(`https://pokeapi.co/api/v2/pokemon/${pokemonName}`);
@@ -36,7 +36,6 @@ const MemoryCardList = () => {
     if (!selectedPokemon.includes(id)) {
         setSelectedPokemon([...selectedPokemon, id]);
         setScore(score + 1);
-        console.log(selectedPokemon);
     }
     else {
         if (score > bestScore) {
@@ -50,7 +49,7 @@ const MemoryCardList = () => {
     return (
         <>  
             <Score score={score} bestScore={bestScore} />
-            <div className="card-wrapper">
+            <div className="list-wrapper">
                 {pokemonData.map((pokemon) => (
                     <MemoryCard key={pokemon.id} title={pokemon.title} icon={pokemon.icon} handleClick={() => handleCardClick(pokemon.id)} />
                 ))}

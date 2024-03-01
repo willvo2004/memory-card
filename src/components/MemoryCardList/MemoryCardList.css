@@ -1,4 +1,8 @@
-.card-wrapper {
+.list-wrapper {
     display: flex;
     gap: 2em;
   }
+
+.list-wrapper .card-content {
+  color: violet;
+}
